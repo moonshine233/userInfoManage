@@ -14,6 +14,13 @@
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
+    <script>
+        window.onload=function () {
+            document.getElementById("backPage").onclick=function () {
+                window.history.back();
+            }
+        }
+    </script>
 </head>
 <body>
 ${sessionScope.user.name}欢迎你
@@ -69,7 +76,7 @@ ${sessionScope.user.name}欢迎你
         <div class="form-group" style="text-align: center">
             <input class="btn btn-primary" type="submit" value="提交" />
             <input class="btn btn-default" type="reset" value="重置" />
-            <input class="btn btn-default" type="button" value="返回"/>
+            <input class="btn btn-default" type="button" id="backPage" value="取消"/>
         </div>
     </form>
 </div>
