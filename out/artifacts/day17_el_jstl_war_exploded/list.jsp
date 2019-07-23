@@ -39,13 +39,13 @@
             document.getElementById("delSelected").onclick=function () {
 
                 var flag=false;
-                    var cbs = document.getElementsByName("uid");
-                    for (var i=0;i<cbs.length;i++){
-                        if(cbs[i].checked)
-                        {
-                            flag=true;break;
-                        }
+                var cbs = document.getElementsByName("uid");
+                for (var i=0;i<cbs.length;i++){
+                    if(cbs[i].checked)
+                    {
+                        flag=true;break;
                     }
+                }
                     if(flag)
                     {
                         if (confirm("您确定删除吗？")){
@@ -73,18 +73,18 @@
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
     <div style="float: left">
-        <form class="form-inline">
+        <form class="form-inline" action="${pageContext.request.contextPath}/findUserByPageServlet">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="">
+                <input type="text" class="form-control" id="exampleInputName2" name="name" value="${condition.name[0]}">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2">籍贯</label>
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="">
+                <input type="text" class="form-control" id="exampleInputEmail2" name="address" value="${condition.address[0]}">
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">邮箱</label>
-                <input type="text" class="form-control" id="exampleInputName3" placeholder="">
+                <input type="text" class="form-control" id="exampleInputName3" name="email" value="${condition.email[0]}">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
@@ -109,9 +109,9 @@
             <th>邮箱</th>
             <th>操作</th>
         </tr>
-        <c:forEach items="${pb.list}" var="user" varStatus="s">
+        <c:forEach items="${pb.list}" var="user" varStatus="s"><!--从pb对象拿到本页的list信息进行展示-->
             <tr>
-                <th><input type="checkbox" name="uid" value="${user.id}"></th>
+                <th><input type="checkbox" name="uid" value="${user.id}"></th><!--value传递选中的id值，用来删除操作-->
                 <td>${s.count}</td>
                 <td>${user.name}</td>
                 <td>${user.gender}</td>
@@ -128,39 +128,41 @@
     <div>
         <nav aria-label="Page navigation">
             <ul class="pagination">
+                <!--上一页-->
                 <c:if test="${pb.currentPage==1}">
                     <li class="disabled">
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=1&rows=5" aria-label="Previous">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=1&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                 </c:if>
                 <c:if test="${pb.currentPage!=1}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.currentPage-1}&rows=5" aria-label="Previous">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.currentPage-1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                 </c:if>
-
+                <!--选择页面键-->
                 <c:forEach begin="1" end="${pb.totalPage}" var="i">
                     <c:if test="${pb.currentPage==i}">
-                        <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&rows=5">${i}</a></li>
+                        <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}">${i}</a></li>
                     </c:if>
                     <c:if test="${pb.currentPage!=i}">
-                        <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&rows=5">${i}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${i}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}">${i}</a></li>
                     </c:if>
                 </c:forEach>
+                <!--下一页-->
                 <c:if test="${pb.currentPage==pb.totalPage}">
                     <li class="disabled">
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.totalPage}&rows=5" aria-label="Next">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.totalPage}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </c:if>
                 <c:if test="${pb.currentPage!=pb.totalPage}">
                     <li>
-                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.currentPage+1}&rows=5" aria-label="Next">
+                        <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentPage=${pb.currentPage+1}&rows=5&name=${condition.name[0]}&address=${condition.address[0]}&email=${condition.email[0]}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

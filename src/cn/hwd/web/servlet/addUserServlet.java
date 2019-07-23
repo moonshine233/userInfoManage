@@ -30,7 +30,6 @@ public class addUserServlet extends HttpServlet {
         }
         UserService service=new UserServiceImpl();
         service.add(user);
-
         response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
 
     }

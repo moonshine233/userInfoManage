@@ -4,6 +4,7 @@ import cn.hwd.domain.PageBean;
 import cn.hwd.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -15,5 +16,5 @@ public interface UserService {
     public void update(User user);
     public void delSelectedUser(String[] ids);
 
-    PageBean<User> findUserByPage(String currentPage, String rows);
+    PageBean<User> findUserByPage(String currentPage, String rows, Map<String, String[]> condition);
 }
